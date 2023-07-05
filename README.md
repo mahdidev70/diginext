@@ -17,10 +17,16 @@ online document <a href="https://diginext.b4it.ir/request-docs">here</a>
 ## How to run locally
 
 There are 3 easy ways. you can do one of them according to your environment :
+<br>
 
 1- run this command: php artisan serve
+<br>
 2- run the project in docker by this command: docker-compose up -d
+<br>
+
 3- run the project by using the sail command: ./vendor/bin/sail up
+<br>
+
 
 <video controls width="250">
 h

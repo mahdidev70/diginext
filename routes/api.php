@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\VideoController;
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +20,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/{id}', [UserController::class, 'show']);
+});
+
+Route::group(['prefix' => 'post'], function () {
+    Route::post('/', [PostController::class, 'store'])->middleware('checkHeader');
+    Route::get('/{id}', [PostController::class, 'show']);
+    Route::post('/{id}/comment', [CommentController::class, 'store'])->middleware('checkHeader');
+});
+
+Route::group(['prefix' => 'video'], function () {
+    Route::post('/', [VideoController::class, 'store'])->middleware('checkHeader');
+    Route::get('/{id}', [VideoController::class, 'show']);
+    Route::post('/{id}/comment', [CommentController::class, 'store'])->middleware('checkHeader');
 });

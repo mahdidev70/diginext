@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
-use App\Http\Requests\UserCreateRequest;
-use App\Repository\Interface\UserRepositoryInterface;
+use App\Http\Resources\PostResource;
+use App\Http\Requests\PostCreateRequest;
+use App\Repository\Interface\PostRepositoryInterface;
 
-class UserController extends Controller
+class PostController extends Controller
 {
-    private UserRepositoryInterface $repository;
+    private PostRepositoryInterface $repository;
 
-    public function __construct(UserRepositoryInterface $orderRepository)
+    public function __construct(PostRepositoryInterface $orderRepository)
     {
         $this->repository = $orderRepository;
     }
@@ -25,17 +25,17 @@ class UserController extends Controller
         return response()->json([
             'status' => 201,
             'message' => __('message.success'),
-            'data' => new UserResource($result),
+            'data' => new PostResource($result),
         ], 201);
     }
 
-    public function store(UserCreateRequest $request)
+    public function store(PostCreateRequest $request)
     {
         $result = $this->repository->store($request->toArray());
         return response()->json([
             'status' => 201,
             'message' => __('message.success_store'),
-            'data' => new UserResource($result),
+            'data' => new PostResource($result),
         ], 201);
     }
 }

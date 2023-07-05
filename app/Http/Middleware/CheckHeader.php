@@ -16,13 +16,21 @@ class CheckHeader
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(! $request->header('id') ){  
-            abort(403);  
-        }  
+        if (!$request->header('id')) {
+            return response()->json([
+                'status' => 403,
+                'message' => __('message.403'),
+                'data' => [],
+            ], 403);
+        }
 
         $user = User::find($request->header('id'));
-        if(!$user){  
-            abort(403);  
+        if (!$user) {
+            return response()->json([
+                'status' => 403,
+                'message' => __('message.403'),
+                'data' => [],
+            ], 403);
         }
         auth()->loginUsingId($user->id);
         return $next($request);
